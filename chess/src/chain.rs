@@ -42,7 +42,7 @@ use crate::board::{self, Board, RawBoard};
 use crate::moves::{self, make, Make, Move, RawUndo};
 use crate::types::{Color, DrawReason, GameStatus, Outcome, OutcomeFilter};
 
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 use std::fmt;
 
 use thiserror::Error;
@@ -83,8 +83,8 @@ pub trait Repeat: Default {
 }
 
 /// Simple repetition table based on [`HashMap`]
-#[derive(Default, Debug, Clone, Eq, PartialEq)]
-pub struct HashRepeat(HashMap<u64, usize>);
+#[derive(Default, Debug, Clone, Eq, PartialEq, Hash)]
+pub struct HashRepeat(BTreeMap<u64, usize>);
 
 impl Repeat for HashRepeat {
     fn push(&mut self, b: &Board) {
@@ -117,7 +117,7 @@ pub type MoveChain = BaseMoveChain<HashRepeat>;
 ///
 /// This version allows customizing its repetition table. Use [`MoveChain`] if you don't
 /// need this.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Hash)]
 pub struct BaseMoveChain<R: Repeat> {
     start: RawBoard,
     board: Board,

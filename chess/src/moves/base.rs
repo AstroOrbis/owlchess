@@ -546,7 +546,7 @@ impl fmt::Display for StyledMove {
 }
 
 /// Metadata necessary to undo the applied move
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, Hash)]
 pub struct RawUndo {
     hash: u64,
     dst_cell: Cell,
