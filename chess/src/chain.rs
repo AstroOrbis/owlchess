@@ -111,6 +111,12 @@ impl Repeat for HashRepeat {
 /// Convenience instantiation of [`BaseMoveChain`] with default repetition table
 pub type MoveChain = BaseMoveChain<HashRepeat>;
 
+impl std::fmt::Display for MoveChain {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "MoveChain({})", self.uci())
+    }
+}
+
 /// Board that remembers previous moves
 ///
 /// See the [module docs](crate::chain) for more details.
