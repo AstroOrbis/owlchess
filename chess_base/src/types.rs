@@ -3,6 +3,7 @@
 use derive_more::Display;
 use std::{fmt, hint, str::FromStr};
 use thiserror::Error;
+use serde::{Serialize, Deserialize};
 
 /// Error when parsing [`Coord`] from string
 #[derive(Error, Debug, Clone, PartialEq, Eq)]
@@ -277,7 +278,7 @@ impl fmt::Display for Rank {
 }
 
 /// Coordinate of a square
-#[derive(Copy, Clone, PartialEq, Eq, Hash)]
+#[derive(Copy, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub struct Coord(u8);
 
 impl Coord {
@@ -621,7 +622,7 @@ impl Piece {
 ///
 /// This type is one compact and is only one byte long to facilitate compact chess board
 /// representation.
-#[derive(Default, Copy, Clone, PartialEq, Eq, Hash)]
+#[derive(Default, Copy, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub struct Cell(u8);
 
 impl Cell {

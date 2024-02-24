@@ -4,14 +4,14 @@ use crate::board::Board;
 use crate::legal::{Checker, NilPrechecker};
 use crate::types::{CastlingRights, CastlingSide, Cell, Color, Coord, File, Piece, Rank};
 use crate::{attack, between, castling, generic, geometry, movegen, zobrist};
-
+use serde::{Deserialize, Serialize};
 use std::fmt;
 use std::str::FromStr;
 
 use thiserror::Error;
 
 /// Move kind
-#[derive(Debug, Default, Copy, Clone, PartialEq, Eq, Hash)]
+#[derive(Debug, Default, Copy, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[repr(u8)]
 pub enum MoveKind {
     /// Null move
@@ -195,7 +195,7 @@ impl MoveKind {
 ///
 /// As stated above, it is well-formed but not semilegal. So, it is not accepted by safe functions, but is accepted
 /// as a semilegal move by unsafe functions (such as [`make_move_unchecked()`]).
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub struct Move {
     kind: MoveKind,
     src_cell: Cell,
