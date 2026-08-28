@@ -472,12 +472,12 @@ impl<R: Repeat> Default for BaseMoveChain<R> {
     }
 }
 
-impl<R: Repeat + Eq> PartialEq<Self> for BaseMoveChain<R> {
+impl<R: Repeat> PartialEq<Self> for BaseMoveChain<R> {
     #[inline]
     fn eq(&self, other: &Self) -> bool {
-        if self.board != other.board
-            || self.repeat != other.repeat
+        if self.start != other.start
             || self.stack.len() != other.stack.len()
+            || self.outcome != other.outcome
         {
             return false;
         }
@@ -488,7 +488,7 @@ impl<R: Repeat + Eq> PartialEq<Self> for BaseMoveChain<R> {
     }
 }
 
-impl<R: Repeat + Eq> Eq for BaseMoveChain<R> {}
+impl<R: Repeat> Eq for BaseMoveChain<R> {}
 
 /// Wrapper that helps to format [`BaseMoveChain`] as a UCI move list
 ///

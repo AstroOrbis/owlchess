@@ -734,7 +734,7 @@ impl TryFrom<RawBoard> for Board {
             return Err(ValidateError::TooManyPieces(Color::Black));
         }
         let white_king = pieces[Cell::from_parts(Color::White, Piece::King).index()];
-        let black_king = pieces[Cell::from_parts(Color::White, Piece::King).index()];
+        let black_king = pieces[Cell::from_parts(Color::Black, Piece::King).index()];
         if white_king.is_empty() {
             return Err(ValidateError::NoKing(Color::White));
         }
@@ -813,7 +813,7 @@ fn parse_cells(s: &str) -> Result<[Cell; 64], CellsParseError> {
             b'1'..=b'8' => {
                 let add = (b - b'0') as usize;
                 if file + add > 8 {
-                    return Err(CellsParseError::RankOverflow(Rank::from_index(rank)));
+                    return Err(Error::RankOverflow(Rank::from_index(rank)));
                 }
                 file += add;
                 pos += add;
